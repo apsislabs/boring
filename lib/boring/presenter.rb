@@ -26,7 +26,10 @@ module Boring
 
               # Ensure we don't have any unexpected arguments
               extra_bindings = (bindings.keys - args.keys)
-              raise "Unexpected argument: #{extra_bindings.join(",")}." unless extra_bindings.empty?
+
+              unless extra_bindings.empty?
+                raise ArgumentError, "Unexpected argument: #{extra_bindings.join(', ')}."
+              end
             end
           end
 
@@ -62,7 +65,7 @@ module Boring
 
           private
 
-          attr_reader *args.keys
+          attr_reader(*args.keys)
         end
       end
 
@@ -90,6 +93,16 @@ module Boring
 
         @__last_methods_added = nil
       end
+
+      def delegate(*methods)
+        options = methods.pop
+
+        unless options.is_a?(Hash) && to = options[:to]
+          raise ArgumentError, 'Delegation needs a target. Supply an options hash with a :to key as the last argument.'
+        end
+
+        def_delegators(to, *methods)
+      end
     end
 
     def before_each_method(*)
@@ -97,8 +110,13 @@ module Boring
       self.class.__arguments.each do |arg_name, arg_class|
         arg_value = send(arg_name.to_sym)
 
-        raise "Argument '#{arg_name}' is not bound." if arg_name.nil?
-        raise "Argument '#{arg_name}' is of type #{arg_value.class}, expecting #{arg_class}." unless arg_value.kind_of?(arg_class)
+        if arg_name.nil?
+          raise ArgumentError, "Argument '#{arg_name}' is not bound."
+        end
+
+        unless arg_value.is_a?(arg_class)
+          raise ArgumentError, "Argument '#{arg_name}' is of type #{arg_value.class}, expecting #{arg_class}."
+        end
       end
     end
   end
