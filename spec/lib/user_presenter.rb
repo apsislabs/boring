@@ -3,10 +3,10 @@ class UserPresenter < Boring::Presenter
   arguments user: User
 
   # Declare pass-through methods
-  def_delegators :user, :birth_date
+  delegate :birth_date, to: :user
 
   # Methods to be handled by the presenter
   def name
-    [user.first_name, user.last_name].reject(&:empty?).join(' ')
+    "#{user.first_name} #{user.last_name}".strip
   end
 end
