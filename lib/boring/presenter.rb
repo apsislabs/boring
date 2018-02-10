@@ -1,13 +1,21 @@
+# frozen_string_literal: true
+
 module Boring
-  class Presenter
+  class Presenter #:nodoc:
     extend Forwardable
 
-    @__arguments = {}
     class << self
       attr_accessor :__arguments
 
+      private
+
+      # Takes a list of arguments and types that will
+      # be passed to the +bind+ method, and defines
+      # the +initialize+ and +bind+ methods.
+      #
+      #   arguments hash: Hash # => bind presenter to a Hash
       def arguments(args)
-        @__arguments = args
+        @__arguments = args.nil? ? {} : args
 
         class_eval do
           unless method_defined?(:initialize)
@@ -69,6 +77,15 @@ module Boring
         end
       end
 
+      # Process all methods on the presenter class
+      # and add a processing step where we will
+      # check whether or not the presenter bindings
+      # are set up properly.
+      #
+      # The wrapped method is aliased to the original
+      # method name, while a new method is defined
+      # as +{method_name}_without_before_each_method+
+      # that will call the original, unwrapped method.
       def method_added(method_name)
         return if self == Boring::Presenter
         return if @__last_methods_added && @__last_methods_added.include?(method_name)
@@ -94,6 +111,11 @@ module Boring
         @__last_methods_added = nil
       end
 
+      # Shorthand for adding delegation between two
+      # objects, wrapping the +def_delegators+
+      # method from +Forwardable+
+      #
+      #   delegate :foo, to: :bar # => delegates +foo+ to +bar+
       def delegate(*methods)
         options = methods.pop
 
@@ -105,6 +127,11 @@ module Boring
       end
     end
 
+    private
+
+    # This method is called before each bound method
+    # and ensures that the proper arguments have
+    # been bound to the presenter before we proceed.
     def before_each_method(*)
       # Ensure everything is properly bound before invoking this method
       self.class.__arguments.each do |arg_name, arg_class|
