@@ -1,6 +1,10 @@
 # Boring
 ## Because your presentation layer shouldn't be interesting
 
+[![Gem Version](https://badge.fury.io/rb/boring_presenters.svg)](https://badge.fury.io/rb/boring_presenters) [![Build Status](https://travis-ci.org/apsislabs/boring.svg?branch=master)](https://travis-ci.org/apsislabs/boring) [![Inline docs](http://inch-ci.org/github/apsislabs/boring.svg?branch=master)](http://inch-ci.org/github/apsislabs/boring)
+
+**Note:** while we're actively using `boring` in production, it is still actively under development, and you should expect breaking changes.
+
 ## Usage
 
 Below is an example of usage for a classic Rails controller/view pattern.
