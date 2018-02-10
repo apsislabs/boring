@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'boring/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'boring'
+  spec.name          = 'boring_presenters'
   spec.version       = Boring::VERSION
   spec.authors       = ['Wyatt Kirby', "Noah Callaway"]
   spec.email         = ['wyatt@apsis.io', "noah@apsis.io"]
