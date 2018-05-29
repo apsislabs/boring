@@ -1,2 +1,2 @@
-require "boring/version"
-require "boring/presenter"
+require "boring_presenters/version"
+require "boring_presenters/presenter"
