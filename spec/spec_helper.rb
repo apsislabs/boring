@@ -1,5 +1,5 @@
 require 'bundler/setup'
-require 'boring'
+require 'boring_presenters'
 require 'lib/user'
 require 'lib/user_presenter'
 
