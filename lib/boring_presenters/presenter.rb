@@ -3,6 +3,7 @@
 module Boring
   class Presenter #:nodoc:
     extend Forwardable
+    include ActionView::Helpers::TranslationHelper if defined? ActionView::Helpers::TranslationHelper
 
     class << self
       attr_accessor :__arguments
