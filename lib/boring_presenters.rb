@@ -2,5 +2,6 @@
 
 require "boring_presenters/version"
 require "boring_presenters/presenter"
+require "boring_presenters/collection"
 
 require "boring_presenters/rails" if defined? Rails

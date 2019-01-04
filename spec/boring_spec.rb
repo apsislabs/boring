@@ -8,6 +8,7 @@ RSpec.describe Boring do
 
   context '#bind' do
     it 'binds to the correct class' do
+      byebug
       expect { presenter.bind(user: user) }.to_not raise_error
     end
 

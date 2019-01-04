@@ -1,11 +1,25 @@
 # frozen_string_literal: true
 
+require 'boring_presenters/collection'
+
 module Boring
   class Presenter #:nodoc:
     extend Forwardable
 
+    collection_klass = Class.new(Boring::Collection) do
+
+    end
+
+    Object.const_set("Collection", collection_klass)
+
+    byebug
+
     class << self
       attr_accessor :__arguments
+
+      def class_name
+        name
+      end
 
       private
 

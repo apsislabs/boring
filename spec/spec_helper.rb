@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'byebug'
 require 'boring_presenters'
 require 'lib/user'
 require 'lib/user_presenter'
