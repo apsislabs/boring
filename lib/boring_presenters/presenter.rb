@@ -1,6 +1,11 @@
 # frozen_string_literal: true
-
+require "byebug"
 require 'boring_presenters/collection'
+
+# Automate the instantiation of the collection class
+#
+# class PriorAuthRequestPresenter::Collection < Boring::Collection
+# end
 
 module Boring
   class Presenter #:nodoc:
@@ -10,7 +15,7 @@ module Boring
 
     end
 
-    Object.const_set("Collection", collection_klass)
+    Object.const_set('Collection', collection_klass)
 
     byebug
 
