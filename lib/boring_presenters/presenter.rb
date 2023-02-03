@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'forwardable'
+
 module Boring
   class Presenter #:nodoc:
     extend Forwardable
